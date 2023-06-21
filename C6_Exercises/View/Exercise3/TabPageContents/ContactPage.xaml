@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C6_Exercises.View.Exercise3.TabPageContents.ContactPage"
+             xmlns:viewModel="clr-namespace:C6_Exercises.ViewModel">
+    <ContentPage.BindingContext>
+        <viewModel:ContactsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="readMessageDataTemplate">
+            <StackLayout Spacing="10"
+                         Orientation="Horizontal"
+                         Padding="10">
+                <Border StrokeShape="RoundRectangle 50"
+                        Stroke="White">
+                    <Image Source="{Binding ProfilePhoto}"
+                       HeightRequest="60"
+                       WidthRequest="60"
+                       Aspect="AspectFill"
+                       HorizontalOptions="Start"/>
+                </Border>
+                <VerticalStackLayout VerticalOptions="CenterAndExpand"
+                                     HorizontalOptions="FillAndExpand">
+                    <Label Text="{Binding Name}"
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           FontFamily="OpenSansRegular"/>
+                    <Label Text="{Binding Status}"
+                           FontSize="14"
+                           FontFamily="OpenSansRegular"/>
+
+                </VerticalStackLayout>
+
+            </StackLayout>
+
+        </DataTemplate>
+
+    </ContentPage.Resources>
+    <ScrollView>
+        
+        <StackLayout Spacing="10"
+                     BackgroundColor="WhiteSmoke"
+                     Padding="10">
+            <StackLayout Spacing="20">
+                <HorizontalStackLayout HorizontalOptions="FillAndExpand"
+                                       Spacing="10">
+                    <ImageButton Source="addgroup.png"
+                                 BackgroundColor="#076659"
+                                 CornerRadius="20"
+                                 Aspect="Center"/>
+                    <Label x:Name="labelNewGroup"
+                       Text="New Group"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                        FontSize="14"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="FillAndExpand"
+                                       Spacing="10">
+                    <ImageButton 
+                         Source="addcontact.png"
+                         BackgroundColor="#076659"
+                                 CornerRadius="20"
+                                 Aspect="Center"/>
+                    <Label x:Name="labelNewContact"
+                       Text="New Contacts"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       FontSize="14"
+                       HorizontalOptions="FillAndExpand"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="FillAndExpand"
+                                       Spacing="10">
+                    <ImageButton 
+                         Source="addcommunity.png"
+                         BackgroundColor="#076659"
+                                 CornerRadius="20"
+                                 Aspect="Center"/>
+                    <Label x:Name="labelCommunityGroup"
+                       Text="New Community Group"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       FontSize="14"
+                        HorizontalOptions="FillAndExpand"/>
+                </HorizontalStackLayout>
+
+            </StackLayout>
+            <Label HorizontalOptions="FillAndExpand"
+               Text="Contacts on WhatsApp"
+               TextColor="DarkSlateGray"
+               FontAttributes="Bold"
+               FontSize="14"/>
+            <CollectionView ItemsSource="{Binding ShowContactList}"
+                        ItemTemplate="{StaticResource readMessageDataTemplate}"
+                        SelectionMode="Single"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="WhiteSmoke">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+        </StackLayout>
+        
+    </ScrollView>
+</ContentPage>

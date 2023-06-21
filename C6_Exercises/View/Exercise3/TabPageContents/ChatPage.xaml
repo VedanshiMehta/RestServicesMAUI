@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C6_Exercises.View.Exercise3.TabPageContents.ChatPage"
+             xmlns:templateSelector="clr-namespace:C6_Exercises.Selector"
+             xmlns:viewModel="clr-namespace:C6_Exercises.ViewModel">
+    <ContentPage.BindingContext>
+        <viewModel:ChatViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="readMessageDataTemplate">
+
+            <StackLayout HorizontalOptions="FillAndExpand">
+            <StackLayout Spacing="10"
+                         Orientation="Horizontal"
+                         Padding="10">
+                <Border StrokeShape="RoundRectangle 50"
+                        Stroke="White">
+                    <Image Source="{Binding ProfilePhoto}"
+                       HeightRequest="60"
+                       WidthRequest="60"
+                       Aspect="AspectFill"
+                       HorizontalOptions="Start"/>
+                </Border>
+                <VerticalStackLayout VerticalOptions="CenterAndExpand"
+                                     HorizontalOptions="FillAndExpand">
+                    <Label Text="{Binding Name}"
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           FontFamily="OpenSansRegular"/>
+                    <Label Text="{Binding MessageSent}"
+                           FontSize="14"
+                           FontFamily="OpenSansRegular"/>
+
+                </VerticalStackLayout>
+                <Label Text="{Binding Time}"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="End"/>
+
+            </StackLayout>
+                <Border HeightRequest="1"
+                        BackgroundColor="LightGray"
+                        Stroke="LightGray"/>
+            </StackLayout>
+
+        </DataTemplate>
+        <DataTemplate x:Key="unreadMessageDataTemplate">
+            <StackLayout HorizontalOptions="FillAndExpand">
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         Spacing="10"
+                         Padding="10"
+                         Orientation="Horizontal">
+                <Border StrokeShape="RoundRectangle 50"
+                        Stroke="White">
+                    <Image Source="{Binding ProfilePhoto}"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       Aspect="AspectFill"
+                       HorizontalOptions="Start"/>
+                </Border>
+                <VerticalStackLayout VerticalOptions="CenterAndExpand"
+                                     HorizontalOptions="FillAndExpand"
+                                     Spacing="5">
+                    <Label Text="{Binding Name}"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           FontFamily="Mistral"/>
+                    <Label Text="{Binding MessageSent}"
+                           FontSize="18"
+                           FontFamily="Mistral"/>
+
+                </VerticalStackLayout>
+                    <VerticalStackLayout HorizontalOptions="End"
+                                     VerticalOptions="CenterAndExpand"
+                                     Spacing="5">
+                        <Label Text="{Binding Time}"
+                        VerticalOptions="CenterAndExpand"
+                        FontFamily="Mistral"
+                           FontAttributes="Bold"/>
+                        <Border BackgroundColor="LightGreen"
+                              Stroke="LightGreen"
+                              StrokeShape="RoundRectangle 30"
+                              Padding="10,5,10,5"
+                                HorizontalOptions="End">
+                            <StackLayout>
+                                <Label x:Name="totalChatCount"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   Text="{Binding UnreadMessage}"
+                                   VerticalOptions="Center"/>
+                            </StackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </StackLayout>
+                <Border HeightRequest="1"
+                        BackgroundColor="LightGray"
+                        Stroke="LightGray"/>
+            </StackLayout>
+        </DataTemplate>
+        <templateSelector:MessageSelector x:Key="messageSelector"
+                                          UnreadMessage="{StaticResource unreadMessageDataTemplate}"
+                                          ReadMessage="{StaticResource readMessageDataTemplate}"/>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        
+        <CollectionView ItemsSource="{Binding ShowMessageList}"
+                        ItemTemplate="{StaticResource messageSelector}"
+                        SelectionMode="Single"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="WhiteSmoke">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+
+    </StackLayout>
+</ContentPage>

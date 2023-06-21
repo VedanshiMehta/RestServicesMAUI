@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C6_Exercises.View.Exercise6.LoginPage"
+             xmlns:viewModel="clr-namespace:C6_Exercises.ViewModel">
+    <ContentPage.BindingContext>
+        <viewModel:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <StackLayout Padding="20"
+                     Spacing="5"
+                     BackgroundColor="LightGray">
+            <Label x:Name="labelHello"
+                   Text="Hello!"
+                   FontSize="40"
+                   HorizontalOptions="FillAndExpand"
+                   FontAttributes="Bold"
+                   TextColor="#114A7E"/>
+            <Label x:Name="labelGetStarted"
+                   Text="Signup to get started "
+                   FontSize="40"
+                   HorizontalOptions="FillAndExpand"
+                   FontAttributes="Bold"
+                   TextColor="#114A7E"
+                   />
+            
+            <Border Padding="10"
+                    Stroke="White"
+                    StrokeShape="RoundRectangle 15"
+                    Margin="0,10,0,0">
+                <Entry x:Name="entryEmailAddress"
+                       Placeholder="Email Address"
+                       HorizontalOptions="FillAndExpand"
+                       Keyboard="Email"
+                       Text="{Binding Email}"/>
+            </Border>
+            <Border Padding="10"
+                    Stroke="White"
+                    StrokeShape="RoundRectangle 15"
+                    Margin="0,10,0,0">
+                <Entry x:Name="entryPassword"
+                       Placeholder="Password"
+                       HorizontalOptions="FillAndExpand"
+                       IsPassword="True"
+                       Text="{Binding Password}"
+                       IsTextPredictionEnabled="False"/>
+            </Border>
+            <Button Text="Sign In"
+                    BackgroundColor="#114A7E"
+                    Padding="5"
+                    CornerRadius="10"
+                    HorizontalOptions="Fill"
+                    Margin="0,10,0,0"
+                    Command="{Binding LoginUser}"/>
+            <StackLayout Spacing="5"
+                         Margin="0,10,0,0"
+                         Orientation="Horizontal">
+                <Label 
+                   Text="Forgot Your Password?"
+                   FontSize="14"
+                   HorizontalOptions="StartAndExpand"
+                   FontAttributes="Bold"
+                   TextColor="DarkGray"
+                    VerticalOptions="Center"
+                   />
+                <Button x:Name="labelSignIn"
+                   Text="Signup"
+                   FontSize="14"
+                   HorizontalOptions="EndAndExpand"
+                   FontAttributes="Bold"
+                   TextColor="DarkGray"
+                   BackgroundColor="LightGray"
+                        Clicked="LabelSignIn_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

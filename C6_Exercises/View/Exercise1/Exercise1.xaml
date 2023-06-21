@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C6_Exercises.Exercise1"
+             xmlns:viewModel="clr-namespace:C6_Exercises.ViewModel">
+    
+    
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+            <Label Text="Recipie"
+                   FontSize="24"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Start"
+                   VerticalTextAlignment="Center"
+                   VerticalOptions="Center"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.BindingContext>
+        <viewModel:GetRecipieViewModel/>
+    </ContentPage.BindingContext>
+ 
+    <ContentPage.Resources>
+        <DataTemplate x:Key="Recipes">
+            <Frame BackgroundColor="White"
+                   BorderColor="White"
+                   Padding="10"
+                   CornerRadius="10"
+                   Margin="10">
+                <StackLayout Spacing="10">
+                    <Frame BackgroundColor="#AFD8E5"
+                           BorderColor="#AFD8E5"
+                           VerticalOptions="Start"
+                           HeightRequest="150">
+                        <StackLayout>
+                            <Image x:Name="imageFood"
+                                   Source="{Binding ImageUrl}"
+                                   HorizontalOptions="Center"
+                                   Aspect="AspectFill"
+                                   VerticalOptions="Center"/>
+                    
+                        </StackLayout>
+                    </Frame>
+                    <Label x:Name="labelTitle"
+                           Text="{Binding Title}"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="Center"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           FontSize="12"
+                           VerticalOptions="FillAndExpand"/>
+                    <HorizontalStackLayout HorizontalOptions="CenterAndExpand"
+                                           Spacing="10"
+                                           >
+                        <Image x:Name="imageTime"
+                               Source="timepicker.png"
+                               HeightRequest="15"
+                               WidthRequest="15"/>
+                        <Label x:Name="lablePreparationTime"
+                               Text="{Binding TimeToPrepare}"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               FontSize="12"
+                               VerticalOptions="Center"
+                               HorizontalOptions="CenterAndExpand"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Frame>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid BackgroundColor="Gray">
+           
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                        Command="{Binding StopRefreshing}">
+            <CollectionView BackgroundColor="Gray"
+                            ItemsSource="{Binding RecipesList}"
+                            ItemTemplate="{StaticResource Recipes}"
+                            x:Name="collectionView"
+                            IsVisible="{Binding IsVisibleCollectionView}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="2"/>
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+                
+            </RefreshView>
+            <ActivityIndicator x:Name="activityIndicator"
+                               IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"/>
+        </Grid>
+      
+    </ScrollView>
+
+</ContentPage>

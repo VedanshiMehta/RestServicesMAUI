@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C6_Exercises.View.Exercise4.Exercise4"
+             xmlns:viewModel="clr-namespace:C6_Exercises.ViewModel">
+    <ContentPage.BindingContext>
+        <viewModel:GetProductViewModel/>
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Border StrokeShape="RoundRectangle 15"
+                    Stroke="Gray"
+                    Padding="10"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+                <Image Source="searchicon.png"
+                       HeightRequest="20"
+                       WidthRequest="20"/>
+            </Border>
+            <Label Text="SHOP"
+                   FontSize="22"
+                   TextColor="Gray"
+                   FontAttributes="Bold"
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   VerticalOptions="Center"/>
+            <Border StrokeShape="RoundRectangle 15"
+                    Stroke="Gray"
+                    Padding="10"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="0,0,0,10">
+                <Image Source="shoppingbag.png"
+                       HeightRequest="20"
+                       WidthRequest="20"/>
+            </Border>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="productList">
+            <StackLayout>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Normal">
+                            <VisualState.Setters>
+                                <Setter TargetName="border"
+                                        Property="Border.BackgroundColor"
+                                        Value="White"/>
+                                <Setter TargetName="border"
+                                        Property="Border.Stroke"
+                                        Value="Gray"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Selected">
+                            <VisualState.Setters>
+                                <Setter TargetName="border"
+                                        Property="Border.BackgroundColor"
+                                        Value="#D3FA84"/>
+                                <Setter TargetName="border"
+                                        Property="Border.Stroke"
+                                        Value="#D3FA84"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Border StrokeShape="RoundRectangle 10"
+                        BackgroundColor="White"
+                        Stroke="Gray"
+                        x:Name="border"
+                        Padding="15">
+                    <StackLayout>
+                        <Label x:Name="categoryTypes"
+                               TextColor="Black"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               Text="{Binding .}"/>
+                    </StackLayout>
+
+                </Border>
+            </StackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="productItemList">
+            <StackLayout Padding="10"
+                         Spacing="5">
+                <Border Stroke="White"
+                        StrokeShape="RoundRectangle 20"
+                        VerticalOptions="Start">
+                    <Image x:Name="imageFood"
+                           Source="{Binding Thumbnail}"
+                           HorizontalOptions="Center"
+                           Aspect="AspectFit"/>
+                     
+                </Border>
+                <Label x:Name="labelProductTitle"
+                           Text="{Binding Title}"
+                           HorizontalOptions="FillAndExpand"
+                           TextColor="Black"
+                       FontAttributes="Bold"
+                           FontSize="14"/>
+                <Label x:Name="labelPrice"
+                           Text="{Binding Price ,StringFormat='{}${0:0}'}"
+                           HorizontalOptions="FillAndExpand"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           VerticalOptions="FillAndExpand"/>
+            </StackLayout>
+        </DataTemplate>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <StackLayout Padding="10"
+                     Spacing="20">
+            <CollectionView ItemsSource="{Binding ProductList}"
+                            ItemTemplate="{StaticResource productList}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedProduct}"
+                            SelectionChangedCommand="{Binding SelectedProductItem}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10"
+                                       Orientation="Horizontal"
+                                       />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+                <CollectionView IsVisible="{Binding IsVisibleCollectionView}"
+                                ItemsSource="{Binding Product}"
+                                ItemTemplate="{StaticResource productItemList}"
+                                SelectionMode="Multiple">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="2"
+                                         HorizontalItemSpacing="5"
+                                         VerticalItemSpacing="2"/>
+                    </CollectionView.ItemsLayout>
+                    
+                </CollectionView>
+                <ActivityIndicator x:Name="activityIndicator"
+                               IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Center"/>
+            </Grid>
+            
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

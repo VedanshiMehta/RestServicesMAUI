@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C6_Exercises.View.Exercise5.TabbedOptions.QuotesPage"
+             xmlns:viewModel="clr-namespace:C6_Exercises.ViewModel">
+    <ContentPage.BindingContext>
+        <viewModel:GetQuotesViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid Padding="10">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#F8F8FF"
+                          Offset="0.2" />
+                    <GradientStop Color="#C7A0EF"
+                          Offset="0.4" />
+                    <GradientStop Color="#984CE0"
+                          Offset="0.8" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <CollectionView ItemsSource="{Binding QuotesList}"
+                            IsVisible="{Binding IsVisibleCollectionView}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10"
+                                       Orientation="Vertical"/>
+
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BackgroundColor="White"
+                                Stroke="Gray"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 20">
+                            <StackLayout>
+                                <Border BackgroundColor="Gray"
+                                        Stroke="Gray"
+                                        StrokeShape="RoundRectangle 20,20,0,0"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start"
+                                        Padding="10">
+                                    <Label x:Name="labelAuthorName"
+                                           Text="{Binding Author}"
+                                           TextColor="#91358F"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"/>
+
+                                </Border>
+                                <VerticalStackLayout VerticalOptions="FillAndExpand"
+                                                     HorizontalOptions="FillAndExpand"
+                                                     BackgroundColor="White"
+                                                     Padding="20">
+                                    <Label x:Name="labelQuotes"
+                                           Text="{Binding Quotes}"
+                                           TextColor="Black"
+                                           FontSize="14"
+                                           HorizontalTextAlignment="Start"
+                                           VerticalTextAlignment="Center"/>
+                                </VerticalStackLayout>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ActivityIndicator x:Name="activityIndicator"
+                               IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>
